@@ -1,6 +1,6 @@
 # Data Normalization and Entity-Relationship Diagramming
 
-
+## Original data set
 | assignment_id | student_id | due_date | professor | assignment_topic                | classroom | grade | relevant_reading    | professor_email   |
 | :------------ | :--------- | :------- | :-------- | :------------------------------ | :-------- | :---- | :------------------ | :---------------- |
 | 1             | 1          | 23.02.21 | Melvin    | Data normalization              | WWH 101   | 80    | Deumlich Chapter 3  | l.melvin@foo.edu  |
@@ -14,7 +14,7 @@
 
 ### Non-compliance with 4NF
 
-The original data set was not compliant with 4NF due to the presence of multi-valued dependencies. Specifically:
+The original dataset contained various forms of redundancy, transitive dependencies, and multi-valued dependencies, which are not permitted in 4NF.
 
 - The `professor` and `professor_email` fields are dependent on each other but not on the primary key (composite key of `assignment_id`, `student_id`, and `due_date`).
 - The `assignment_topic` and `relevant_reading` are dependent on `assignment_id` but not on the whole primary key.
@@ -30,17 +30,14 @@ To make the dataset 4NF compliant, we undertook the following steps, creating se
 
 ### 1. Professors Table
 
-This table eliminates redundancy and multi-valued dependencies related to professors' information.
-
 | professor_id | professor_name | professor_email      |
 |--------------|----------------|----------------------|
 | 1            | Melvin         | l.melvin@foo.edu     |
 | 2            | Logston        | e.logston@foo.edu    |
 | 3            | Nevarez        | i.nevarez@foo.edu    |
+| ...          | ...            | ...                  |
 
 ### 2. Assignments Table
-
-Isolates assignments to eliminate redundancy in assignment topics and readings.
 
 | assignment_id | assignment_topic                 | relevant_reading    |
 |---------------|----------------------------------|---------------------|
@@ -48,15 +45,15 @@ Isolates assignments to eliminate redundancy in assignment topics and readings.
 | 2             | Single table queries             | Dümmlers Chapter 11 |
 | 5             | Python and pandas                | Dümmlers Chapter 14 |
 | 4             | Spreadsheet aggregate functions  | Zehnder Page 87     |
+| ...           | ...                              | ...                 |
 
 ### 3. Courses Table
-
-Added to provide a clear structure for course-related information, which was implicit in the original dataset.
 
 | course_id | course_name    |
 |-----------|----------------|
 | 101       | Data Science   |
 | 102       | Database Systems |
+| ...       | ...              |
 
 ### 4. Classrooms Table
 
@@ -92,3 +89,11 @@ Stores grades, linking them to students, assignments, and the sections where the
 
 ## The ER diagram of 4NF-compliant version of the data set
 ![ER-diagram](./images/ER-diagram.png)
+
+## Changes the data 4NF-compliant
+
+### Create distinctive table
+I divide the dataset into six distinct tables: Professors, Assignments, Courses, Classrooms, Sections, and Grades. By thinking logically, I made sure that each table represented a unique aspect of the university's grade in course structure.
+
+### Normalization and adding additional fields
+
