@@ -11,24 +11,21 @@
 | ...           | ...        | ...      | ...       | ...                             | ...       | ...   | ...                 | ...               |
 
 
-
-### Non-compliance with 4NF
+## Non-compliance with 4NF
 
 The original dataset contained various forms of redundancy, transitive dependencies, and multi-valued dependencies, which are not permitted in 4NF.
 
-- The `professor` and `professor_email` fields are dependent on each other but not on the primary key (composite key of `assignment_id`, `student_id`, and `due_date`).
-- The `assignment_topic` and `relevant_reading` are dependent on `assignment_id` but not on the whole primary key.
-- Classrooms are tied to specific courses and professors, suggesting an improper storage of multi-valued facts.
-
-## Changes Made for 4NF Compliance
-
-To achieve 4NF compliance, we restructured the data into multiple tables, each focusing on a single theme. This involved the creation of additional fields and tables, as necessary, to eliminate multi-valued dependencies. Below are the redesigned tables:
+- Multi-Valued Dependencies: The dataset included fields that were dependent on each other but not on the primary key (such as professor, and professor email), violating the 4NF rule that a table must not contain more than one independent multi-valued relationship.
+- Transitive Dependencies: Information such as assignment details was indirectly related to the primary key through another non-key attribute (assignment_id), leading to unnecessary duplication and potential for inconsistency.
+- Redundancy: The same information about professors and assignment details was repeated across multiple records.
 
 ## Achieving 4NF Compliance
 
 To make the dataset 4NF compliant, we undertook the following steps, creating separate tables for different entities to eliminate multi-valued and transitive dependencies:
 
 ### 1. Professors Table
+
+Demonstrate the information of professor.
 
 | professor_id | professor_name | professor_email      |
 |--------------|----------------|----------------------|
@@ -38,6 +35,8 @@ To make the dataset 4NF compliant, we undertook the following steps, creating se
 | ...          | ...            | ...                  |
 
 ### 2. Assignments Table
+
+Demonstrate the information of assignment.
 
 | assignment_id | assignment_topic                 | relevant_reading    |
 |---------------|----------------------------------|---------------------|
@@ -49,6 +48,8 @@ To make the dataset 4NF compliant, we undertook the following steps, creating se
 
 ### 3. Courses Table
 
+Demonstrate the information of the course.
+
 | course_id | course_name    |
 |-----------|----------------|
 | 101       | Data Science   |
@@ -57,27 +58,29 @@ To make the dataset 4NF compliant, we undertook the following steps, creating se
 
 ### 4. Classrooms Table
 
-Organizes classroom information to manage physical locations independently of the courses or sections.
+Demonstrate the location of the classroom.
 
 | classroom_id | classroom_location |
 |--------------|--------------------|
 | 1            | WWH 101            |
 | 2            | 60FA 314           |
 | 3            | WWH 201            |
+| ...          | ...                |
 
 ### 5. Sections Table
 
-Connects courses, professors, and classrooms, addressing the issue of sections of the same course possibly meeting in different classrooms or being taught by different professors.
+Connects courses, professors, and classrooms, clearly showing the information of each section.
 
 | section_id | course_id | professor_id | classroom_id |
 |------------|-----------|--------------|--------------|
 | 1          | 101       | 1            | 1            |
 | 2          | 102       | 2            | 2            |
 | 3          | 102       | 3            | 3            |
+| ...        | ...       | ...          | ...          |
 
 ### 6. Grades Table
 
-Stores grades, linking them to students, assignments, and the sections where the assignment was given, eliminating the multi-valued dependencies seen in the original dataset.
+Stores grades, linking them to students, assignments, and the sections where the assignment was given.
 
 | student_id | section_id | assignment_id | grade | due_date  |
 |------------|------------|---------------|-------|-----------|
@@ -86,6 +89,7 @@ Stores grades, linking them to students, assignments, and the sections where the
 | 4          | 1          | 1             | 75    | 23.02.21  |
 | 2          | 2          | 5             | 92    | 05.05.21  |
 | 2          | 3          | 4             | 65    | 04.07.21  |
+| ...        | ...        | ...           | ...   | ...       |
 
 ## The ER diagram of 4NF-compliant version of the data set
 ![ER-diagram](./images/ER-diagram.png)
@@ -93,7 +97,11 @@ Stores grades, linking them to students, assignments, and the sections where the
 ## Changes the data 4NF-compliant
 
 ### Create distinctive table
-I divide the dataset into six distinct tables: Professors, Assignments, Courses, Classrooms, Sections, and Grades. By thinking logically, I made sure that each table represented a unique aspect of the university's grade in course structure.
+I restructured the dataset into six distinct tables: Professors, Assignments, Courses, Classrooms, Sections, and Grades. By thinking logically, I made sure that each table represented a unique aspect of the university's grade in course structure.
 
-### Normalization and adding additional fields
+### Adding additional fields and introduce Primmary keys and Foreign keys
+I add some additional fields to make sure that each table can include the necessary information. I introduced primary key to ensure that each record in a table can be uniquely identified. I introduced foreign keys to maintain the relationships between different aspects of the dataset.
+
+### Eliminating redundancy and dependencies
+I removed transitive dependencies to ensure that non-key attributes were only dependent on primary keys. By creating dedicated tables for each entity and defining relationships through foreign keys, I ensure each table not contain more than one independent multi-valued fact about an entity. The new structure significantly reduced redundancy by ensuring that information about professors, assignments, courses, grades, sections and classrooms was stored once and referenced elsewhere through foreign keys. 
 
