@@ -26,8 +26,6 @@ The same information about professors and assignment details was repeated across
 
 ## Achieving 4NF Compliance
 
-To make the dataset 4NF compliant, we undertook the following steps, creating separate tables for different entities to eliminate multi-valued and transitive dependencies:
-
 ### 1. Professors Table
 
 Demonstrate the information of professor.
