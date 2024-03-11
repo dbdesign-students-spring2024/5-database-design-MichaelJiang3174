@@ -15,9 +15,14 @@
 
 The original dataset contained various forms of redundancy, transitive dependencies, and multi-valued dependencies, which are not permitted in 4NF.
 
-- Multi-Valued Dependencies: The dataset included fields that were dependent on each other but not on the primary key (such as professor, and professor email), violating the 4NF rule that a table must not contain more than one independent multi-valued relationship.
-- Transitive Dependencies: Information such as assignment details was indirectly related to the primary key through another non-key attribute (assignment_id), leading to unnecessary duplication and potential for inconsistency.
-- Redundancy: The same information about professors and assignment details was repeated across multiple records.
+### Multi-Valued Dependencies
+The dataset included fields that were dependent on each other but not on the primary key (such as professor, and professor email), violating the 4NF rule that a table must not contain more than one independent multi-valued relationship.
+
+### Transitive Dependencies
+Information such as assignment details was indirectly related to the primary key through another non-key attribute (assignment_id), leading to unnecessary duplication and potential for inconsistency.
+
+### Redundancy
+The same information about professors and assignment details was repeated across multiple records.
 
 ## Achieving 4NF Compliance
 
