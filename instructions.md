@@ -72,5 +72,3 @@ Each student must submit this assignment individually. Use Visual Studio Code to
 
 1. Type a short note about what you have done to the files in the `Message` area, and then type `Command-Enter` (Mac) or `Control-Enter` (Windows) to perform git `stage` and `commit` actions.
 1. Click the `...` icon next to the words, "Source Control" and select "Push" to perform the git `push` action. This will upload your work to your repository on GitHub.com.
-
-![Pushing work in Visual Studio Code](./images/vscode_stage_commit_push.png)
